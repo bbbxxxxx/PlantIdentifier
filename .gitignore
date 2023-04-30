@@ -1,8 +1,8 @@
 #Own ignores
-/id_dir/*
-!id_dir/.gitkeep
-/wrong_formats/*
-!wrong_formats/.gitkeep
+# /id_dir/*
+# !id_dir/.gitkeep
+# /wrong_formats/*
+# !wrong_formats/.gitkeep
 model
 plants.pptx
 gtsrb
