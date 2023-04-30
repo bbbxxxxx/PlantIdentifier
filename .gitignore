@@ -1,6 +1,6 @@
 #Own ignores
-id_dir
-wrong_formats
+id_dir/*
+wrong_formats/*
 model
 plants.pptx
 gtsrb
