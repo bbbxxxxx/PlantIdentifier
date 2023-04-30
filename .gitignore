@@ -1,3 +1,10 @@
+#Own ignores
+id_dir
+wrong_formats
+model
+plants.pptx
+gtsrb
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
