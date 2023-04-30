@@ -1,6 +1,8 @@
 #Own ignores
 id_dir/*
+!id_dir
 wrong_formats/*
+!wrong_formats
 model
 plants.pptx
 gtsrb
