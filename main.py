@@ -56,7 +56,7 @@ def main():
         lyt=prs.slide_layouts[0] # choosing a slide layout
 
         for image in imgs:
-            if image == ".DS_Store":
+            if image not in [".DS_Store", ".gitkeep"]:
                 continue
 
             imgPath = os.path.join(id_dir, image)
