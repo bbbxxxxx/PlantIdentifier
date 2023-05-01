@@ -4,7 +4,7 @@ Each slide of the PowerPoint will contain one image and its matching plant name
 
 **Dependencies:**
 ```
-tensorflow, python-pptx, PIL, OpenCV, numpy, scikit-learn
+tkinter, python-pptx, numpy, PIL, requests, json, csv, selenium, webdriver_manager, bs4
 ```
 ##Instructions:
 
