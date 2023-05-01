@@ -6,6 +6,7 @@
 model
 plants.pptx
 gtsrb
+plantnet_300K
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

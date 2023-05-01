@@ -1,0 +1,26 @@
+{
+    "rostliny \n(Plantae)": {
+        "rostliny krytosemenn\u00e9 \n(Magnoliophyta)": {
+            "vy\u0161\u0161\u00ed dvoud\u011blo\u017en\u00e9 rostliny \n(Rosopsida)": {
+                "bobotvar\u00e9 \n(Fabales)": {
+                    "bobovit\u00e9 \n(Fabaceae)": [
+                        "jest\u0159abina \n(Galega)",
+                        "zornie \n(Zornia)"
+                    ]
+                },
+                "lom\u00e1cie \n(Proteales)": {
+                    "lom\u00e1cie \n(Proteaceae)": [
+                        "lom\u00e1cie \n(Lomatia)"
+                    ]
+                }
+            },
+            "rostliny jednod\u011blo\u017en\u00e9 \n(Liliopsida)": {
+                "ch\u0159estotvar\u00e9 \n(Asparagales)": {
+                    "ch\u0159estovit\u00e9 \n(Asparagaceae)": [
+                        "lado\u0148ka \n(Oncostema)"
+                    ]
+                }
+            }
+        }
+    }
+}
