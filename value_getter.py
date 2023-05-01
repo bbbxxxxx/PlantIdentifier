@@ -7,11 +7,13 @@ import pptx
 from pptx.util import Inches
 import numpy as np
 import csv
+import sys
 
 from json import JSONEncoder
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
+from selenium.common.exceptions import NoSuchElementException
 
 import tree_maker as tm
 from bs4 import BeautifulSoup as BS
@@ -88,52 +90,58 @@ def produce_output(model):
         prs.save("plants.pptx")
 
 def main():
-    eraseFile()
-    # getHierarchy("Galega_officinalis")
-    # getHierarchy("Zornia gibbosa")
-    # getHierarchy("Oncostema_elongata")
-    # getHierarchy("Lomatia_ferruginea")
+    if (len(sys.argv) in [2] and sys.argv[1] == "true"):
+        eraseFile()
+        # getHierarchy("Galega_officinalis")
+        # getHierarchy("Zornia gibbosa")
+        # getHierarchy("Oncostema_elongata")
+        # getHierarchy("Lomatia_ferruginea")
 
-    with open(plantsList, "r") as f:
-        csvreader = csv.reader(f)
-        for i in csvreader:
-            for j in i:
-                getHierarchy(j)
+        driver = webdriver.Chrome(ChromeDriverManager().install())
+        driver.get(searchUrl)
 
-    json_object = json.dumps(resultDict, indent=4)
-    with open(valDir, "a") as f:
-        f.write(json_object)
+        consent = driver.find_element(By.ID, 'consentAllButton')
+        consent.click()
 
-    tm.main()
+        with open(plantsList, "r") as f:
+            csvreader = csv.reader(f)
+            for i in csvreader:
+                for j in i:
+                    getHierarchy(j, driver)
+
+        json_object = json.dumps(resultDict, indent=4)
+        with open(valDir, "a") as f:
+            f.write(json_object)
+
+    tm.makeTree()
 
 def eraseFile():
     open(valDir, "w").close()
 
-def getHierarchy(plantName):
-    searchterm = plantName
-
-    driver = webdriver.Chrome(ChromeDriverManager().install())
-    driver.get(searchUrl)
-
-    consent = driver.find_element(By.ID, 'consentAllButton')
-    consent.click()
-
+def getHierarchy(plantName, driver):
     sbox = driver.find_element(By.XPATH, "//input[@type='text' and @autofocus='autofocus' and @name='string']")
-    sbox.send_keys(searchterm)
+    sbox.send_keys(plantName)
 
     submit = driver.find_element(By.XPATH, "//input[@type='submit' and @class='clbutton' and @value=' OK ']")
     submit.click()
+
+    try:
+        firstElem = driver.find_element(By.XPATH, '//*[@id="screen"]/div[5]/div[1]/div/a')
+        firstElem.click()
+    except NoSuchElementException:
+        print("Could not find: " + plantName)
+        return
 
     page_source = driver.page_source
     soup = BS(page_source, features="lxml")
 
     #Scrape all values
-    kingdom = getTypeElement(soup, "říše")
-    phylum = getTypeElement(soup, "oddělení")
-    plantClass = getTypeElement(soup, "třída")
-    order = getTypeElement(soup, "řád")
-    family = getTypeElement(soup, "čeleď")
-    genus = getTypeElement(soup, "rod")
+    kingdom = getTypeElement(soup, "říše", driver)
+    phylum = getTypeElement(soup, "oddělení", driver)
+    plantClass = getTypeElement(soup, "třída", driver)
+    order = getTypeElement(soup, "řád", driver)
+    family = getTypeElement(soup, "čeleď", driver)
+    genus = getTypeElement(soup, "rod", driver)
 
     result = plant(kingdom, phylum, plantClass, order, family, genus)
 
@@ -187,8 +195,14 @@ def merge_dicts(dict_list):
                 result[key] = [result[key], value]
     return result
 
-def getTypeElement(soup, input):
+def getTypeElement(soup, input, driver):
     identifier = soup.find(string=re.compile(input))
+    # if identifier == None:
+    #     firstElem = driver.find_element(By.XPATH, '//*[@id="screen"]/div[5]/div[1]/div/a')
+    #     firstElem.click()
+    #     page_source = driver.page_source
+    #     soup = BS(page_source, features="lxml")
+    #     identifier = soup.find(string=re.compile(input))
     latin = identifier.find_next("a")
     czech = latin.find_next("b")
     latinText = str(latin.contents[0])

@@ -2,22 +2,67 @@
     "rostliny \n(Plantae)": {
         "rostliny krytosemenn\u00e9 \n(Magnoliophyta)": {
             "vy\u0161\u0161\u00ed dvoud\u011blo\u017en\u00e9 rostliny \n(Rosopsida)": {
-                "bobotvar\u00e9 \n(Fabales)": {
-                    "bobovit\u00e9 \n(Fabaceae)": [
-                        "jest\u0159abina \n(Galega)",
-                        "zornie \n(Zornia)"
+                "v\u0159esovcotvar\u00e9 \n(Ericales)": {
+                    "v\u0159esovcovit\u00e9 \n(Ericaceae)": [
+                        "p\u011bni\u0161n\u00edk \n(Rhododendron)"
+                    ],
+                    "prvosenkovit\u00e9 \n(Primulaceae)": [
+                        "prvosenka \n(Primula)"
                     ]
                 },
-                "lom\u00e1cie \n(Proteales)": {
-                    "lom\u00e1cie \n(Proteaceae)": [
-                        "lom\u00e1cie \n(Lomatia)"
+                "brutn\u00e1kovit\u00e9 \n(Boraginales)": {
+                    "brutn\u00e1kovit\u00e9 \n(Boraginaceae)": [
+                        "pomn\u011bnkovec \n(Brunnera)"
+                    ]
+                },
+                "prysky\u0159n\u00edkotvar\u00e9 \n(Ranunculales)": {
+                    "prysky\u0159n\u00edkovit\u00e9 \n(Ranunculaceae)": [
+                        "\u010deme\u0159ice \n(Helleborus)"
+                    ],
+                    "d\u0159i\u0161\u0165\u00e1lovit\u00e9 \n(Berberidaceae)": [
+                        "\u0161kornice \n(Epimedium)"
+                    ]
+                },
+                "jesencotvar\u00e9 \n(Celastrales)": {
+                    "jesencovit\u00e9 \n(Celastraceae)": [
+                        "brslen \n(Euonymus)"
+                    ]
+                },
+                "r\u016f\u017eotvar\u00e9 \n(Rosales)": {
+                    "r\u016f\u017eovit\u00e9 \n(Rosaceae)": [
+                        "kukl\u00edk \n(Geum)"
+                    ]
+                },
+                "zimostr\u00e1zotvar\u00e9 \n(Buxales)": {
+                    "zimostr\u00e1zovit\u00e9 \n(Buxaceae)": [
+                        "zimostr\u00e1z \n(Buxus)"
+                    ]
+                },
+                "hluchavkotvar\u00e9 \n(Lamiales)": {
+                    "hluchavkovit\u00e9 \n(Lamiaceae)": [
+                        "hluchavka \n(Lamium)"
                     ]
                 }
             },
             "rostliny jednod\u011blo\u017en\u00e9 \n(Liliopsida)": {
                 "ch\u0159estotvar\u00e9 \n(Asparagales)": {
                     "ch\u0159estovit\u00e9 \n(Asparagaceae)": [
-                        "lado\u0148ka \n(Oncostema)"
+                        "mod\u0159enec \n(Muscari)"
+                    ],
+                    "amarylkovit\u00e9 \n(Amaryllidaceae)": [
+                        "sn\u011b\u017eenka \n(Galanthus)"
+                    ]
+                },
+                "liliotvar\u00e9 \n(Liliales)": {
+                    "liliovit\u00e9 \n(Liliaceae)": [
+                        "tulip\u00e1n \n(Tulipa)"
+                    ]
+                }
+            },
+            "ni\u017e\u0161\u00ed dvoud\u011blo\u017en\u00e9 rostliny \n(Magnoliopsida)": {
+                "\u0161\u00e1cholanotvar\u00e9 \n(Magnoliales)": {
+                    "\u0161\u00e1cholanovit\u00e9 \n(Magnoliaceae)": [
+                        "\u0161\u00e1cholan \n(Magnolia)"
                     ]
                 }
             }

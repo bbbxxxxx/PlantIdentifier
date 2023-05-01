@@ -34,29 +34,29 @@ def main():
         sys.exit("Usage: python main.py (bool)train_model")
 
     if (textToBool(sys.argv[1])):
-        # train_images, train_labels = load_data(train_directory, True)
-        # test_images, test_labels = load_data(test_directory)
+        train_images, train_labels = load_data(train_directory, True)
+        test_images, test_labels = load_data(test_directory)
 
-        # train_labels = tf.keras.utils.to_categorical(test_labels)
+        train_labels = tf.keras.utils.to_categorical(test_labels)
 
         # Get a compiled neural network
         model = get_model()
 
             # Fit model on training data
-        # for batchTrain, batchLabel in train_images, trainLabels:
-        #     batchLabel = tf.keras.utils.to_categorical(batchLabel)
-        #     model.fit(batchTrain, batchLabel, epochs=2)
+        for batchTrain, batchLabel in train_images, trainLabels:
+            batchLabel = tf.keras.utils.to_categorical(batchLabel)
+            model.fit(batchTrain, batchLabel, epochs=2)
 
-        images, labels = load_data("gtsrb", false)
+        # images, labels = load_data("gtsrb", false)
 
-        # Split data into training and testing sets
-        labels = tf.keras.utils.to_categorical(labels)
-        x_train, x_test, y_train, y_test = train_test_split(
-            np.array(images), np.array(labels), test_size=TEST_SIZE
-        )
+        # # Split data into training and testing sets
+        # labels = tf.keras.utils.to_categorical(labels)
+        # x_train, x_test, y_train, y_test = train_test_split(
+        #     np.array(images), np.array(labels), test_size=TEST_SIZE
+        # )
 
         # Fit model on training data
-        model.fit(x_train, y_train, epochs=EPOCHS)
+        # model.fit(x_train, y_train, epochs=EPOCHS)
 
         # Evaluate neural network performance
         model.evaluate(test_images,  test_labels, verbose=2)
