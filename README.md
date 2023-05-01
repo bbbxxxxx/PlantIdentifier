@@ -1,7 +1,7 @@
 # PlantIdentifier
 <!-- ##Creates a PowerPoint presentation from an input sequence of images
 Each slide of the PowerPoint will contain one image and its matching plant name -->
-#Creates a phylogenetic tree
+##Creates a phylogenetic tree
 
 **Dependencies:**
 ```
