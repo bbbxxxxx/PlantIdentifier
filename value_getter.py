@@ -8,6 +8,7 @@ from pptx.util import Inches
 import numpy as np
 import csv
 import sys
+import cv2
 
 from json import JSONEncoder
 from selenium import webdriver
@@ -21,6 +22,7 @@ import re
 
 valDir = "values.json"
 plantsList = "plants.csv"
+id_dir = "id_dir"
 searchUrl = "https://www.biolib.cz/cz/main/"
 
 resultDict = {}
@@ -31,64 +33,68 @@ class plantEncoder(JSONEncoder):
             return {o.__class__.__name__: o.__dict__}
 
 class plant:
-    def __init__(self, kingdom, phylum, plantClass, order, family, genus):
+    def __init__(self, kingdom, phylum, plantClass, order, family, genus, czechName, latinName):
         self.kingdom = kingdom
         self.phylum = phylum
         self.plantClass = plantClass
         self.order = order
         self.family = family
         self.genus = genus
+        self.czechName = czechName
+        self.latinName = latinName
 
-def produce_output(model):
+def produce_output():
     imgs = os.listdir(id_dir)
     prs = pptx.Presentation()
     lyt=prs.slide_layouts[0] # choosing a slide layout
 
-    with open(map_file, "r") as f:
-        eraseFile()
-        data = json.load(f)
-        for image in imgs:
-            if image not in [".DS_Store", ".gitkeep"]:
-                continue
+    for image in imgs:
+        if image in [".DS_Store", ".gitkeep"]:
+            continue
 
-            imgPath = os.path.join(id_dir, image)
+        imgPath = os.path.join(id_dir, image)
 
-            if imgPath[:-4] != ".ppm":
-                im = Image.open(imgPath)
-                ppmPath = f"{imgPath}.ppm"
-                im.convert("RGB").save(ppmPath, "PPM")
-                os.rename(imgPath, os.path.join("wrong_formats", image))
-                imgPath = ppmPath
+        # if imgPath[:-4] != ".ppm":
+        #     im = Image.open(imgPath)
+        #     ppmPath = f"{imgPath[:imgPath.find('.')]}.ppm"
+        #     im.convert("RGB").save(ppmPath, "PPM")
+        #     os.rename(imgPath, os.path.join("wrong_formats", image))
+        #     imgPath = ppmPath
 
-            img = cv2.imread(imgPath, cv2.IMREAD_COLOR)
-            img = cv2.resize(img, (IMG_WIDTH, IMG_HEIGHT))
-            output = model.predict(np.array([img]))
+        # img = cv2.imread(imgPath, cv2.IMREAD_COLOR)
+        # img = cv2.resize(img, (IMG_WIDTH, IMG_HEIGHT))
+        # output = model.predict(np.array([img]))
 
-            newPath = os.path.join(id_dir, f"{str(imgs.index(image))}.jpg")
-            im = Image.open(imgPath)
-            im.convert("RGB").save(newPath, "JPEG")
+        # newPath = os.path.join(id_dir, f"{str(imgs.index(image))}.jpg")
+        # im = Image.open(imgPath)
+        # im.convert("RGB").save(newPath, "JPEG")
 
-            slide=prs.slides.add_slide(lyt) #New slide
-            # title=slide.shapes.title
-            imag=slide.shapes.add_picture(newPath, Inches(0), Inches(0)) #Image
-            subtitle=slide.placeholders[1]
-            # title.text=image
+        hierarchy = plants[image[:image.find('.')]]
+        if hierarchy == None:
+            continue
 
-            text = requests.get(searchUrl).text
+        slide=prs.slides.add_slide(lyt) #New slide
+        title=slide.shapes.title
+        title.top = Inches(0)
+        title.left = Inches(6)
+        imag=slide.shapes.add_picture(imgPath, Inches(0.2), Inches(0.2), width=Inches(2.5), height=Inches(3.333)) #Image
+        subtitle=slide.placeholders[1]
 
-            plantName = data[str(np.argmax(output))]
-            # subtitle.text = plantName #Image classification
+        # plantName = data[str(np.argmax(output))]
+        plantName = imgPath[:imgPath.find('.')]
+        # subtitle.text = plantName #Image classification
+        title.text=f"{str(hierarchy.czechName).capitalize()} ({hierarchy.latinName})"
+        subtitle.text = f"Třída: {hierarchy.plantClass}\n Řád: {hierarchy.order}\n Čeleď: {hierarchy.family}\n Rod: {hierarchy.genus}"
 
-            hierarchy = getHierarchy(plantName)
-            subtitle.text = f"Class: {hierarchy.plantClass}, Order: {hierarchy.order}, Family: {hierarchy.family}, Genus: {hierarchy.genus}"
+        # os.remove(newPath)
 
-            os.remove(newPath)
-
-        json_object = json.dumps(resultDict, indent=4)
-        with open(valDir, "a") as f:
-            f.write(json_object)
+        # json_object = json.dumps(resultDict, indent=4)
+        # with open(valDir, "a") as f:
+        #     f.write(json_object)
         prs.save("plants.pptx")
 
+plants = {}
+runByList = True
 def main():
     if (len(sys.argv) in [2] and sys.argv[1] == "true"):
         eraseFile()
@@ -103,17 +109,38 @@ def main():
         consent = driver.find_element(By.ID, 'consentAllButton')
         consent.click()
 
-        with open(plantsList, "r") as f:
-            csvreader = csv.reader(f)
-            for i in csvreader:
-                for j in i:
-                    getHierarchy(j, driver)
+        if runByList:
+            with open(plantsList, "r") as f:
+                csvreader = csv.reader(f)
+                for i in csvreader:
+                    for j in i:
+                        plants[j] = getHierarchy(j, driver)
+                        print(j)
+        else:
+            for j in os.listdir(id_dir):
+                if j in [".DS_Store", ".gitkeep"]:
+                    continue
+                plants[j[:j.find(".")]] = getHierarchy(j[:j.find(".")], driver)
+                print(j[:j.find(".")])
 
         json_object = json.dumps(resultDict, indent=4)
         with open(valDir, "a") as f:
             f.write(json_object)
 
+    if not runByList:
+        produce_output()
     tm.makeTree()
+    #     with open(plantsList, "r") as f:
+    #         csvreader = csv.reader(f)
+    #         for i in csvreader:
+    #             for j in i:
+    #                 getHierarchy(j, driver)
+
+    #     json_object = json.dumps(resultDict, indent=4)
+    #     with open(valDir, "a") as f:
+    #         f.write(json_object)
+
+    # tm.makeTree()
 
 def eraseFile():
     open(valDir, "w").close()
@@ -126,27 +153,49 @@ def getHierarchy(plantName, driver):
     submit.click()
 
     try:
-        firstElem = driver.find_element(By.XPATH, '//*[@id="screen"]/div[5]/div[1]/div/a')
-        firstElem.click()
-    except NoSuchElementException:
-        print("Could not find: " + plantName)
-        return
+        driver.find_element(By.XPATH, '//*[@id="screen"]/div[3]/div/p/span[1]')
+    except:
+        # print("Could not find: " + plantName)
+        # return
+        try:
+            firstElem = driver.find_element(By.XPATH, '//*[@id="screen"]/div[5]/div[1]/div/a')
+            firstElem.click()
+        except NoSuchElementException:
+            try:
+                secElem = driver.find_element(By.XPATH, '//*[@id="screen"]/div[6]/div[1]/div/a')
+                secElem.click()
+            except:
+                print(f"Error! Could not find {plantName}")
+                return
 
     page_source = driver.page_source
     soup = BS(page_source, features="lxml")
 
     #Scrape all values
-    kingdom = getTypeElement(soup, "říše", driver)
-    phylum = getTypeElement(soup, "oddělení", driver)
-    plantClass = getTypeElement(soup, "třída", driver)
-    order = getTypeElement(soup, "řád", driver)
-    family = getTypeElement(soup, "čeleď", driver)
-    genus = getTypeElement(soup, "rod", driver)
+    kingdom = getTypeElement(soup, "říše")
+    phylum = getTypeElement(soup, "oddělení")
+    plantClass = getTypeElement(soup, "třída")
+    order = getTypeElement(soup, "řád")
+    family = getTypeElement(soup, "čeleď")
+    genus = getTypeElement(soup, "rod")
 
-    result = plant(kingdom, phylum, plantClass, order, family, genus)
+    try:
+        czechName = driver.find_element(By.XPATH, '//*[@id="screen"]/div[3]/div/h1/strong[1]').text
+    except:
+        czechName = "-"
+    try:
+        latinName = driver.find_element(By.XPATH, '//*[@id="screen"]/div[3]/div/h1/strong[2]/em').text
+    except:
+        latinName = "-"
+    try:
+        latinName = driver.find_element(By.XPATH, '//*[@id="screen"]/div[3]/div/h1/strong/em').text
+    except:
+        latinName = "-"
+
+    result = plant(kingdom, phylum, plantClass, order, family, genus, czechName, latinName)
 
     #Create organized output
-    familyDict = {family: [genus]}
+    familyDict = {family: [f"{genus}NAME:{czechName} \n({latinName})"]}
     orderDict = {order: familyDict}
     classDict = {plantClass: orderDict}
     phylumDict = {phylum: classDict}
@@ -161,11 +210,11 @@ def getHierarchy(plantName, driver):
                             return result
                         else:
                             if type(resultDict[kingdom][phylum][plantClass][order][family]) == list:
-                                resultDict[kingdom][phylum][plantClass][order][family].append(genus)
+                                resultDict[kingdom][phylum][plantClass][order][family].append(f"{genus}NAME:{czechName} \n({latinName})")
                             else:
-                                resultDict[kingdom][phylum][plantClass][order][family] = [genus]
+                                resultDict[kingdom][phylum][plantClass][order][family] = [f"{genus}NAME:{czechName} \n({latinName})"]
                     else:
-                        resultDict[kingdom][phylum][plantClass][order][family] = [genus]
+                        resultDict[kingdom][phylum][plantClass][order][family] = [f"{genus}NAME:{czechName} \n({latinName})"]
                 else:
                     resultDict[kingdom][phylum][plantClass][order] = familyDict
             else:
@@ -195,20 +244,25 @@ def merge_dicts(dict_list):
                 result[key] = [result[key], value]
     return result
 
-def getTypeElement(soup, input, driver):
+def getElementContent(soup, XPath):
+    identifier = soup.find()
+
+def getTypeElement(soup, input):
     identifier = soup.find(string=re.compile(input))
-    # if identifier == None:
-    #     firstElem = driver.find_element(By.XPATH, '//*[@id="screen"]/div[5]/div[1]/div/a')
-    #     firstElem.click()
-    #     page_source = driver.page_source
-    #     soup = BS(page_source, features="lxml")
-    #     identifier = soup.find(string=re.compile(input))
     latin = identifier.find_next("a")
     czech = latin.find_next("b")
-    latinText = str(latin.contents[0])
-    if latinText[:4] == "<em>":
-        latinText = latinText[4:-5]
-    return f"{czech.contents[0]} \n({latinText})"
+    
+    if len(latin) > 0:
+        latinText = str(latin.contents[0])
+        if latinText[:4] == "<em>":
+            latinText = latinText[4:-5]
+    else:
+        latinText = "-"
+
+    czechText = "-"
+    if len(czech) > 0:
+        czechText = czech.contents[0]
+    return f"{czechText} ({latinText})"
 
 if __name__ == "__main__":
     main()

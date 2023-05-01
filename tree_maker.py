@@ -5,9 +5,9 @@ from copy import deepcopy
 valDir = "values.json"
 imgWidth = 1300
 imgHeight = 800
-boxWidth = 100
-boxHeight = 22.5
-xPadding = 100
+boxWidth = 130
+boxHeight = 17
+xPadding = 35
 yPadding = 9
 yOffset = 50
 
@@ -52,40 +52,44 @@ def makeTree():
                             genusStartY = deepcopy(counter)
                             genusLine = []
                             for genus in data[kingdom][phylum][plantClass][order][family]:
-                                genusLine.append(drawRect(canvas, 0, counter, genus)[0])
+                                genusName = genus[:genus.find("NAME:")]
+                                plantName = genus[genus.find("NAME:") + 5:]
+                                genusLine.append(drawRect(canvas, 1, counter, genusName)[0])
+                                drawRect(canvas, 0, counter, plantName, "#ff5e6c")
                                 counter+=1
                             genusEndY = deepcopy(counter) - 1
                             familyCache.append((genusEndY - genusStartY)/2 + genusStartY)
-                            origin = drawRect(canvas, 1, (genusEndY - genusStartY)/2 + genusStartY, family)
+                            origin = drawRect(canvas, 2, (genusEndY - genusStartY)/2 + genusStartY, family)
                             drawLine(canvas, origin[1], genusLine)
                             familyLine.append(origin[0])
                         # familyEndY = deepcopy(counter) - 1
-                        origin = drawRect(canvas, 2, sum(familyCache)/len(familyCache), order)
+                        origin = drawRect(canvas, 3, sum(familyCache)/len(familyCache), order)
                         drawLine(canvas, origin[1], familyLine)
                         orderLine.append(origin[0])
                         orderCache.append(sum(familyCache)/len(familyCache))
                     # orderEndY = deepcopy(counter) - 1
-                    origin = drawRect(canvas, 3, sum(orderCache)/len(orderCache), plantClass)
+                    origin = drawRect(canvas, 4, sum(orderCache)/len(orderCache), plantClass)
                     drawLine(canvas, origin[1], orderLine)
                     classLine.append(origin[0])
                     classCache.append(sum(orderCache)/len(orderCache))
                 # classEndY = deepcopy(counter) - 1
-                origin = drawRect(canvas, 4, sum(classCache)/len(classCache), phylum)
+                origin = drawRect(canvas, 5, sum(classCache)/len(classCache), phylum)
                 drawLine(canvas, origin[1], classLine)
                 phylumLine.append(origin[0])
                 phylumCache.append(sum(classCache)/len(classCache))
             # phylumEndY = deepcopy(counter) - 1
-            origin = drawRect(canvas, 5, sum(phylumCache)/len(phylumCache), kingdom)
+            origin = drawRect(canvas, 6, sum(phylumCache)/len(phylumCache), kingdom)
             drawLine(canvas, origin[1], phylumLine)
             # orderLine.append(origin[1])
             # cache.append(sum(cache)/len(cache))
 
-    writeTitles(canvas, 0, 0, "Genus:")
-    writeTitles(canvas, 1, 0, "Family:")
-    writeTitles(canvas, 2, 0, "Order:")
-    writeTitles(canvas, 3, 0, "Class:")
-    writeTitles(canvas, 4, 0, "Phylum:")
-    writeTitles(canvas, 5, 0, "Kingdom:")
+    writeTitles(canvas, 0, 0, "Name:")
+    writeTitles(canvas, 1, 0, "Genus:")
+    writeTitles(canvas, 2, 0, "Family:")
+    writeTitles(canvas, 3, 0, "Order:")
+    writeTitles(canvas, 4, 0, "Class:")
+    writeTitles(canvas, 5, 0, "Phylum:")
+    writeTitles(canvas, 6, 0, "Kingdom:")
     window.mainloop()
 
 def getY(counter):
@@ -93,7 +97,7 @@ def getY(counter):
 
 def drawLine(canvas, origin, points):
     for i in points:
-        canvas.create_line(origin[0], origin[1], i[0], i[1], fill="black", width="3")
+        canvas.create_line(origin[0], origin[1], i[0], i[1], fill="#18091a", width="3")
 
 def writeTitles(canvas, rightOffset, counter, label):
     x1 = imgWidth - ((boxWidth + xPadding) * rightOffset) - boxWidth - totalXOffset
@@ -104,14 +108,14 @@ def writeTitles(canvas, rightOffset, counter, label):
     canvas.create_rectangle(x1, y1, x2, y2, fill="#1c2a4d")
     canvas.create_text((x2 - x1)/2 + x1, (y2 - y1)/2 + y1, text=label, fill="#9db1e3", font=('Helvetica','8'))
 
-def drawRect(canvas, rightOffset, counter, label):
+def drawRect(canvas, rightOffset, counter, label, color = "#32a83c"):
     x1 = imgWidth - ((boxWidth + xPadding) * rightOffset) - boxWidth - totalXOffset
     y1 = (boxHeight + yPadding) * counter + yOffset + totalYOffset
     x2 = imgWidth - ((boxWidth + xPadding) * rightOffset) - totalXOffset
     y2 = (boxHeight + yPadding) * counter + boxHeight + yOffset + totalYOffset
 
-    canvas.create_rectangle(x1, y1, x2, y2, fill="#32a83c")
-    canvas.create_text((x2 - x1)/2 + x1, (y2 - y1)/2 + y1, text=label, fill="#023309", font=('Helvetica','8'))
+    canvas.create_rectangle(x1, y1, x2, y2, fill=color)
+    canvas.create_text((x2 - x1)/2 + x1, (y2 - y1)/2 + y1, text=label, fill="#023309", font=('Helvetica','7'))
 
     return ((x1, (y2 - y1)/2 + y1), (x2, (y2 - y1)/2 + y1))
 

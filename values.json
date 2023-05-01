@@ -1,68 +1,83 @@
 {
-    "rostliny \n(Plantae)": {
-        "rostliny krytosemenn\u00e9 \n(Magnoliophyta)": {
-            "vy\u0161\u0161\u00ed dvoud\u011blo\u017en\u00e9 rostliny \n(Rosopsida)": {
-                "v\u0159esovcotvar\u00e9 \n(Ericales)": {
-                    "v\u0159esovcovit\u00e9 \n(Ericaceae)": [
-                        "p\u011bni\u0161n\u00edk \n(Rhododendron)"
+    "rostliny (Plantae)": {
+        "rostliny krytosemenn\u00e9 (Magnoliophyta)": {
+            "vy\u0161\u0161\u00ed dvoud\u011blo\u017en\u00e9 rostliny (Rosopsida)": {
+                "prysky\u0159n\u00edkotvar\u00e9 (Ranunculales)": {
+                    "d\u0159i\u0161\u0165\u00e1lovit\u00e9 (Berberidaceae)": [
+                        "mah\u00f3nie (Mahonia)NAME:mah\u00f3nie cesm\u00ednolist\u00e1 \n(Mahonia aquifolium)",
+                        "\u0161kornice (Epimedium)NAME:\u0161kornice zpe\u0159en\u00e1 \n(Epimedium pinnatum)"
                     ],
-                    "prvosenkovit\u00e9 \n(Primulaceae)": [
-                        "prvosenka \n(Primula)"
+                    "prysky\u0159n\u00edkovit\u00e9 (Ranunculaceae)": [
+                        "\u010deme\u0159ice (Helleborus)NAME:\u010deme\u0159ice v\u00fdchodn\u00ed \n(Helleborus orientalis)"
                     ]
                 },
-                "brutn\u00e1kovit\u00e9 \n(Boraginales)": {
-                    "brutn\u00e1kovit\u00e9 \n(Boraginaceae)": [
-                        "pomn\u011bnkovec \n(Brunnera)"
-                    ]
-                },
-                "prysky\u0159n\u00edkotvar\u00e9 \n(Ranunculales)": {
-                    "prysky\u0159n\u00edkovit\u00e9 \n(Ranunculaceae)": [
-                        "\u010deme\u0159ice \n(Helleborus)"
+                "v\u0159esovcotvar\u00e9 (Ericales)": {
+                    "prvosenkovit\u00e9 (Primulaceae)": [
+                        "prvosenka (Primula)NAME:prvosenka bezlody\u017en\u00e1 \n(Primula vulgaris)"
                     ],
-                    "d\u0159i\u0161\u0165\u00e1lovit\u00e9 \n(Berberidaceae)": [
-                        "\u0161kornice \n(Epimedium)"
+                    "jirnicovit\u00e9 (Polemoniaceae)": [
+                        "plamenka (Phlox)NAME:plamenka \u0161\u00eddlovit\u00e1 \n(Phlox subulata)"
+                    ],
+                    "v\u0159esovcovit\u00e9 (Ericaceae)": [
+                        "v\u0159es (Calluna)NAME:v\u0159es obecn\u00fd \n(Calluna vulgaris)",
+                        "p\u011bni\u0161n\u00edk (Rhododendron)NAME:Rhododendron simsii Planch. \n(Rhododendron simsii)"
                     ]
                 },
-                "jesencotvar\u00e9 \n(Celastrales)": {
-                    "jesencovit\u00e9 \n(Celastraceae)": [
-                        "brslen \n(Euonymus)"
+                "r\u016f\u017eotvar\u00e9 (Rosales)": {
+                    "r\u016f\u017eovit\u00e9 (Rosaceae)": [
+                        "kukl\u00edk (Geum)NAME:kukl\u00edk poto\u010dn\u00ed \n(Geum rivale)"
                     ]
                 },
-                "r\u016f\u017eotvar\u00e9 \n(Rosales)": {
-                    "r\u016f\u017eovit\u00e9 \n(Rosaceae)": [
-                        "kukl\u00edk \n(Geum)"
+                "jesencotvar\u00e9 (Celastrales)": {
+                    "jesencovit\u00e9 (Celastraceae)": [
+                        "brslen (Euonymus)NAME:brslen japonsk\u00fd \n(Euonymus japonicus)"
                     ]
                 },
-                "zimostr\u00e1zotvar\u00e9 \n(Buxales)": {
-                    "zimostr\u00e1zovit\u00e9 \n(Buxaceae)": [
-                        "zimostr\u00e1z \n(Buxus)"
+                "hluchavkotvar\u00e9 (Lamiales)": {
+                    "hluchavkovit\u00e9 (Lamiaceae)": [
+                        "hluchavka (Lamium)NAME:hluchavka nachov\u00e1 \n(Lamium purpureum)"
                     ]
                 },
-                "hluchavkotvar\u00e9 \n(Lamiales)": {
-                    "hluchavkovit\u00e9 \n(Lamiaceae)": [
-                        "hluchavka \n(Lamium)"
+                "brutn\u00e1kovit\u00e9 (Boraginales)": {
+                    "brutn\u00e1kovit\u00e9 (Boraginaceae)": [
+                        "pomn\u011bnkovec (Brunnera)NAME:pomn\u011bnkovec velkolist\u00fd \n(Brunnera macrophylla)"
+                    ]
+                },
+                "zimostr\u00e1zotvar\u00e9 (Buxales)": {
+                    "zimostr\u00e1zovit\u00e9 (Buxaceae)": [
+                        "zimostr\u00e1z (Buxus)NAME:zimostr\u00e1z v\u017edyzelen\u00fd \n(Buxus sempervirens)"
+                    ]
+                },
+                "hv\u011bzdnicotvar\u00e9 (Asterales)": {
+                    "hv\u011bzdnicovit\u00e9 (Asteraceae)": [
+                        "sedmikr\u00e1ska (Bellis)NAME:sedmikr\u00e1ska obecn\u00e1 \n(Bellis perennis)"
                     ]
                 }
             },
-            "rostliny jednod\u011blo\u017en\u00e9 \n(Liliopsida)": {
-                "ch\u0159estotvar\u00e9 \n(Asparagales)": {
-                    "ch\u0159estovit\u00e9 \n(Asparagaceae)": [
-                        "mod\u0159enec \n(Muscari)"
-                    ],
-                    "amarylkovit\u00e9 \n(Amaryllidaceae)": [
-                        "sn\u011b\u017eenka \n(Galanthus)"
+            "rostliny jednod\u011blo\u017en\u00e9 (Liliopsida)": {
+                "liliotvar\u00e9 (Liliales)": {
+                    "liliovit\u00e9 (Liliaceae)": [
+                        "tulip\u00e1n (Tulipa)NAME:tulip\u00e1n zahradn\u00ed \n(Tulipa)"
                     ]
                 },
-                "liliotvar\u00e9 \n(Liliales)": {
-                    "liliovit\u00e9 \n(Liliaceae)": [
-                        "tulip\u00e1n \n(Tulipa)"
+                "ch\u0159estotvar\u00e9 (Asparagales)": {
+                    "ch\u0159estovit\u00e9 (Asparagaceae)": [
+                        "mod\u0159enec (Muscari)NAME:mod\u0159enec hroznat\u00fd \n(Muscari neglectum)"
+                    ],
+                    "amarylkovit\u00e9 (Amaryllidaceae)": [
+                        "sn\u011b\u017eenka (Galanthus)NAME:sn\u011b\u017eenka podsn\u011b\u017en\u00edk \n(Galanthus nivalis)"
+                    ]
+                },
+                "lipnicotvar\u00e9 (Poales)": {
+                    "bromeliovit\u00e9 (Bromeliaceae)": [
+                        "tilandsie (Tillandsia)NAME:tilandsie provazovkovit\u00e1 \n(Tillandsia usneoides)"
                     ]
                 }
             },
-            "ni\u017e\u0161\u00ed dvoud\u011blo\u017en\u00e9 rostliny \n(Magnoliopsida)": {
-                "\u0161\u00e1cholanotvar\u00e9 \n(Magnoliales)": {
-                    "\u0161\u00e1cholanovit\u00e9 \n(Magnoliaceae)": [
-                        "\u0161\u00e1cholan \n(Magnolia)"
+            "ni\u017e\u0161\u00ed dvoud\u011blo\u017en\u00e9 rostliny (Magnoliopsida)": {
+                "\u0161\u00e1cholanotvar\u00e9 (Magnoliales)": {
+                    "\u0161\u00e1cholanovit\u00e9 (Magnoliaceae)": [
+                        "\u0161\u00e1cholan (Magnolia)NAME:\u0161\u00e1cholan liliokv\u011bt\u00fd \n(Magnolia liliiflora)"
                     ]
                 }
             }
